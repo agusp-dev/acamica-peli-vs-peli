@@ -1,7 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const competenciasController = require('./controladores/CompetenciasController')
+const competenciasController = require('./controladores/competenciasController')
+const peliculasController = require('./controladores/peliculasController')
 
 var app = express()
 app.use(cors())
@@ -16,3 +17,4 @@ var puerto = '8080';
 app.listen(puerto, () => console.log( "Escuchando en el puerto " + puerto ));
 
 app.get('/competencias', competenciasController.obtenerCompetencias)
+app.get('/competencias/:id/peliculas', peliculasController.obtenerPeliculas)

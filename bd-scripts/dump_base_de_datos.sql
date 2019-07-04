@@ -10,6 +10,13 @@ CREATE TABLE `competencia` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `competencia` (`id`, `nombre`) 
+  VALUES 
+  (1, 'Cuál es la mejor película?'),
+  (2, 'Qué drama te hizo llorar más'),
+  (3, 'Cuál es la peli mas bizarra?'),
+  (4, 'Cuál es la peor pelicula?');
+
 DROP TABLE IF EXISTS `actor`;
 
 CREATE TABLE `actor` (
