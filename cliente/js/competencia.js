@@ -82,7 +82,7 @@ function CompetenciasController () {
 		var opciones = $.getJSON(server+"/competencias/"+id+"/peliculas",
 	    function(data) {
 	    	// Se cargan las opciones en el DOM
-	    	self.cargarOpciones(id, data.opciones);
+	    	self.cargarOpciones(id, data);
 	    });
 	},
 	this.cargarOpciones = function (id, opciones){

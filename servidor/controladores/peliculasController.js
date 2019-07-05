@@ -22,21 +22,58 @@ const obtenerPeliculas = (req, res) => {
                         return res.status(500).json(error)
                     }
                     res.status(200).json(
-                        returnJson(resultCompetencia[0].nombre, resultPeliculas))
+                        returnPeliculasJson(resultCompetencia[0].nombre, resultPeliculas))
                 }
             )
         }
     )
 }
 
-function returnJson(competencia, result) {
+function returnPeliculasJson(competencia, result) {
     return {
-        'opciones': {
-            'competencia': competencia,
-            'peliculas': result
-        } 
+        'competencia': competencia,
+        'peliculas': result 
     }
 }
 
-module.exports = {obtenerPeliculas}
+const obtenerPeliculasGanadoras = (req, res) => {
+    
+    //Se obtiene competencia
+    var competenciaId = req.params.id;
+    bdConn.query(
+        `SELECT nombre FROM competencia WHERE id=${competenciaId}`,
+        (error, resultCompetencia) => {
+            if (error) {
+                console.log(error)
+                return res.status(500).json(error) 
+            }
+            if (resultCompetencia.length == 0) return res.status(404).json('La competencia seleccionada no existe.')
+            
+            //Se obtienen peliculas aleatorias
+            bdConn.query(
+                'SELECT p.id, p.titulo, p.poster, v.competencia_id, COUNT(*) AS votos FROM pelicula p INNER JOIN voto v ON p.id = v.pelicula_id GROUP BY titulo, p.id, v.competencia_id HAVING v.competencia_id = ? ORDER BY COUNT(*) DESC LIMIT 3',
+                [competenciaId],
+                (error, resultGanadoras) => {
+                    if (error) {
+                        console.log(error)
+                        return res.status(500).json(error)
+                    }
+                    res.status(200).json(
+                        returnResultadosJson(resultCompetencia[0].nombre, resultGanadoras))
+                }
+            )
+        }
+    )
+}
 
+function returnResultadosJson(competencia, result) {
+    return {
+        'competencia': competencia,
+        'resultados': result
+    }
+}
+
+module.exports = {
+    obtenerPeliculas,
+    obtenerPeliculasGanadoras
+}

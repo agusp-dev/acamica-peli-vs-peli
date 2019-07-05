@@ -20,4 +20,4 @@ app.listen(puerto, () => console.log( "Escuchando en el puerto " + puerto ));
 app.get('/competencias', competenciasController.obtenerCompetencias)
 app.get('/competencias/:id/peliculas', peliculasController.obtenerPeliculas)
 app.post('/competencias/:id/voto', votosController.registrarVoto)
-app.get('/competencias/:id/resultados', //todo)
+app.get('/competencias/:id/resultados', peliculasController.obtenerPeliculasGanadoras)
