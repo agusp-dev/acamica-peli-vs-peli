@@ -4,7 +4,10 @@ const obtenerCompetencias = (req, res) => {
     bdConn.query(
         'SELECT * FROM competencia', 
         (error, result) => {
-            if (error) return res.status(500).send(error);
+            if (error) {
+                console.log(error)
+                return res.status(500).send(error);
+            }
             res.status(200).json(returnJson(result));
         });
 }
