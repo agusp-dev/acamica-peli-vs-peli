@@ -117,6 +117,7 @@ function CompetenciasController () {
 		// Se obtienen los géneros existentes de películas del backend
 		$.getJSON(server+"/generos",
 			function(data){
+				console.log(data)
 				// Se vacía el elemento que contiene los géneros
 		    	$("#genero").empty();
 		    	// Se carga la opción "sin seleccionar" que corresponde a todos los géneros
